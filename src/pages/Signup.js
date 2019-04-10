@@ -16,6 +16,10 @@ export default class Signup extends Component {
     header: null,
   }
 
+  signup = () => {
+    alert("Signing up");
+  }
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -29,7 +33,10 @@ export default class Signup extends Component {
               <Image style={{ width: 350, height: 225, marginVertical: 20 }} source={require('../images/HELL.gif')} />
             </View>
 
-            <Form type="signup"/>
+            <Form
+              type="Signup"
+              callback={this.signup}
+            />
 
             <View style={localStyles.signupContainer}>
               <Text style={{ color: "#f2a87d", fontWeight: "600" }}>Already have an account?</Text>

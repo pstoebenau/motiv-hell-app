@@ -17,68 +17,60 @@ export default class Form extends Component {
     this.state = {
       username: "",
       password: "",
+      passRetype: "",
     };
   }
 
+  handleSubmit = () => {
+    var {type} = this.props;
+    var {password, passRetype} = this.state;
+
+    if(type.localeCompare("Signup") == 0 && password.localeCompare(passRetype) != 0)
+      alert("Password does not match");
+
+    this.props.callback(this.state);
+  }
+
   render() {
-    if(this.props.type.localeCompare("login") == 0){
-      return (
-          <View style={{ flex: 1 }}>
-            <TextInput
-              style={styles.input}
-              value={this.state.username}
-              onChangeText={(text) => this.setState({username: text})}
-              placeholder="Username"
-            />
-
-            <TextInput
-              style={styles.input}
-              value={this.state.password}
-              onChangeText={(text) => this.setState({password: text})}
-              placeholder="Password"
-              secureTextEntry={true}
-            />
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => this.props.callback(this.state)}
-            >
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-          </View>
-      );
-    }else if(this.props.type.localeCompare("signup") == 0){
-      return (
+    return (
         <View style={{ flex: 1 }}>
           <TextInput
             style={styles.input}
+            value={this.state.username}
+            onChangeText={(text) => this.setState({username: text})}
             placeholder="Username"
           />
 
           <TextInput
             style={styles.input}
+            value={this.state.password}
+            onChangeText={(text) => this.setState({password: text})}
             placeholder="Password"
             secureTextEntry={true}
           />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Re-type Password"
-            secureTextEntry={true}
-          />
+          {(() => {
+            if(this.props.type.localeCompare("Signup") == 0){
+              return(
+                <TextInput
+                  style={styles.input}
+                  value={this.state.passRetype}
+                  onChangeText={(text) => this.setState({passRetype: text})}
+                  placeholder="Re-type Password"
+                  secureTextEntry={true}
+                />
+              );
+            }
+          })()}
 
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Signup</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.handleSubmit}
+          >
+            <Text style={styles.buttonText}>{this.props.type}</Text>
           </TouchableOpacity>
         </View>
-      );
-    }else {
-      return (
-        <View>
-          <Text>ERROR: Form.js has invalid type</Text>
-        </View>
-      );
-    }
+    );
   }
 }
 

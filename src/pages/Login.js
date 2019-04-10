@@ -16,6 +16,12 @@ export default class Login extends Component {
     header: null,
   }
 
+  login = (creds) => {
+    alert("Logging in");
+
+    this.props.navigation.navigate("Home");
+  }
+
   render() {
     const {navigate} = this.props.navigation;
 
@@ -30,8 +36,8 @@ export default class Login extends Component {
             </View>
 
             <Form
-              type="login"
-              callback={(creds)=>alert(creds.username)}
+              type="Login"
+              callback={this.login}
             />
 
             <View style={localStyles.signupContainer}>
