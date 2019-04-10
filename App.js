@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput } from 'react-native';
+import {
+  createStackNavigator,
+  createAppContainer,
+} from 'react-navigation';
 
-import styles from './styles/style';
-import Bet from './components/Bet';
-import Form from './components/Form';
+import LoginScreen from './src/pages/Login';
+import SignupScreen from './src/pages/Signup';
 
-export default class Login extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Login</Text>
-      </View>
-    );
-  }
-}
+const AppStackNavigator = createStackNavigator({
+  Login: LoginScreen,
+  Signup: SignupScreen,
+});
+
+const App = createAppContainer(AppStackNavigator);
+
+export default App;
